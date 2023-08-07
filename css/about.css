@@ -1,0 +1,105 @@
+.wip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wip__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin-top: 250px;
+}
+
+.wip__img {
+  margin: 20px 0px;
+}
+
+.slogan {
+  font-size: 50px;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.wip__content p {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.back__img {
+  max-width: 300px;
+  rotate: 15deg;
+  margin-top: 250px;
+}
+
+.back__img2 {
+  max-width: 300px;
+  rotate: -15deg;
+  margin-top: 250px;
+}
+
+.why__content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 330px;
+}
+
+.card {
+  max-width: 390px;
+  background-color: var(--fourth--color);
+  padding: 20px 20px;
+  border-radius: 15px;
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card i {
+  font-size: 50px;
+  color: var(--third--color);
+  margin-right: 10px;
+}
+
+.card h3 {
+  font-size: 24px;
+}
+
+.card p {
+  font-size: 20px;
+  text-align: justify;
+}
+
+.mission {
+  margin-top: 200px;
+  background-color: var(--secondary--color);
+}
+
+.mission__content {
+  display: flex;
+  align-items: center;
+}
+
+.mission__img {
+  max-width: 57%;
+}
+
+.mission__text {
+  margin-left: 30px;
+}
+
+.mission__text h1 {
+  font-size: 50px;
+  color: white;
+  text-decoration: underline;
+}
+
+.mission__text P {
+  font-size: 20px;
+  color: white;
+}
