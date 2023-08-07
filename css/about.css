@@ -103,3 +103,33 @@
   font-size: 20px;
   color: white;
 }
+
+.contact__content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  scale: 1.6;
+}
+
+.contact__form h1 {
+  margin-bottom: 20px;
+}
+
+.contact__form input {
+  border: none;
+  margin-bottom: 80px;
+  border-bottom: 2px solid transparent;
+}
+
+.contact__form input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--primary--color);
+}
