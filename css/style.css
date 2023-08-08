@@ -149,7 +149,7 @@
 }
 
 .re {
-	margin-top: 100px;
+	margin: 100px 0px;
 }
 
 .re__content {
@@ -295,6 +295,10 @@
 		margin-top: 1rem;
 	}
 
+	.sponsor__content {
+		overflow: hidden;
+	}
+
 	.hero {
 		margin-top: 80px; /* Adjust this value as needed */
 	}
@@ -331,6 +335,10 @@
 		max-width: 250px;
 	}
 
+	.se__img {
+		width: 100%;
+	}
+
 	.re__content {
 		justify-content: flex-start;
 	}
@@ -340,7 +348,6 @@
 	}
 
 	.box__img {
-		width: 100%;
 		height: auto;
 	}
 }

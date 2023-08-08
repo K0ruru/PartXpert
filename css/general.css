@@ -81,6 +81,13 @@ body {
 	margin: 0 auto;
 }
 
+.wrapper2 {
+	max-width: 1720px;
+	height: 100%;
+	margin: 0 auto;
+	justify-content: flex-end;
+}
+
 .highlight {
 	background-color: white;
 	font-family: "Poppins";
