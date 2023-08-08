@@ -288,6 +288,15 @@
     margin-top: 150px;
   }
 
+  .mission__content {
+    flex-direction: column;
+    padding-bottom: 50px;
+  }
+
+  .mission__img {
+    max-width: 100%;
+  }
+
   .contact__content {
     flex-direction: column;
     justify-content: center;
