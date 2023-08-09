@@ -15,8 +15,6 @@
 .filter {
   margin-bottom: 20px;
   width: 30%;
-  position: fixed;
-  left: 250px;
 }
 
 .product-cards {
@@ -70,4 +68,66 @@
 
 .product-card button:hover {
   background-color: var(--secondary--color);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.cart-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.has-items .bx-cart {
+  color: var(--secondary--color);
+}
+
+.cart-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.remove-from-cart {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .nav__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav__links {
+    margin-top: 1rem;
+  }
+
+  .ctlg {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
