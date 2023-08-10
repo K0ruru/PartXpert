@@ -58,6 +58,22 @@ body {
   padding-top: 120px; /* Adjust this value based on your navbar height */
 }
 
+a {
+  color: #007bff; /* Default link color */
+}
+
+a:visited {
+  color: #9900cc; /* Color for visited links */
+}
+
+a:hover {
+  color: #ff9900; /* Color for links on hover */
+}
+
+a:active {
+  color: #ff3300; /* Color for links when clicked */
+}
+
 ::-webkit-scrollbar {
   height: 12px;
   width: 12px;
