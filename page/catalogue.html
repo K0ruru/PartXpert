@@ -1,99 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PartXpert</title>
-    <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/catalogue.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <nav class="nav" id="main-nav">
-      <div class="wrapper">
-        <div class="nav__content">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PartXpert</title>
+		<link rel="stylesheet" href="/css/general.css" />
+		<link rel="stylesheet" href="/css/catalogue.css" />
+		<link
+			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<nav class="nav" id="main-nav">
+			<div class="wrapper">
+				<div class="nav__content">
           <div class="logo"><img src="/images/PartXpert.png" alt="" /></div>
-          <ul class="nav__links">
+					<ul class="nav__links">
             <li class="nav__link"><a href="/page/index.html">HOME</a></li>
-            <li class="nav__link"><a href="">CATALOGUE</a></li>
-            <li class="nav__link"><a href="/page/product.html">CART</a></li>
-            <li class="nav__link"><a href="/page/about.html">ABOUT US</a></li>
-            <a href="/page/sign up.html"
-              ><button class="nav__button">SIGN UP</button></a
-            >
-          </ul>
-        </div>
-      </div>
-    </nav>
+						<li class="nav__link"><a href="">CATALOGUE</a></li>
+						<li class="nav__link"><a href="/page/about.html">ABOUT US</a></li>
+						<li class="nav__link"><a class="toggle-btn" onclick="toggleNav()"">CART</a></li>
+						<a href="/page/sign up.html"
+            ><button class="nav__button">SIGN UP</button></a
+						>
+					</ul>
+				</div>
+			</div>
+		</nav>
+    
+    <div class="overlay"></div>
+		<div class="cart">
+      <h1>CART</h1>
+      <ul class="cart-items">
+    
+      </ul>
+      <p class="total-price">Total Price: Rp. 0.00</p>
+		</div>
+    
 
-    <section class="catalogue">
-      <div class="ctlg wrapper2">
-        <div class="filter">
-          <label for="category">Filter by Category</label>
-          <select id="category">
-            <option value="all">All</option>
-            <option value="cpu">CPU</option>
-            <option value="gpu">GPU</option>
-            <option value="cases">Cases</option>
-            <option value="psu">PSU</option>
-            <option value="ram">RAM</option>
-            <option value="storage">Storage</option>
-            <option value="other">Other PC Parts</option>
-          </select>
-        </div>
+		<section class="catalogue">
+			<div class="ctlg wrapper2">
+				<div class="filter">
+					<label for="category">Filter by Category</label>
+					<select id="category">
+						<option value="all">All</option>
+						<option value="cpu">CPU</option>
+						<option value="gpu">GPU</option>
+						<option value="cases">Cases</option>
+						<option value="psu">PSU</option>
+						<option value="ram">RAM</option>
+						<option value="storage">Storage</option>
+						<option value="other">Other PC Parts</option>
+					</select>
+				</div>
 
-        <div class="product-cards">
-          <div class="product-card cpu">
-            <a href="/page/product.html?productId=1">
-              <div class="product__img__container">
-                <img src="/images/Amd Ryzen 9.png" alt="CPU" />
-              </div>
-              <h3 id="product-name">Ryzen 9 5950X</h3>
-              <p id="product-price">Rp. 6.000.000,00</p>
-              <button class="add-to-cart">Add to Cart</button>
+				<div class="product-cards">
+					<div class="product-card cpu">
+						<a href="/page/product.html?productId=1">
+							<div class="product__img__container">
+								<img src="/images/Amd Ryzen 9.png" alt="CPU" />
+							</div>
+							<h3 id="product-name">Ryzen 9 5950X</h3>
+							<p id="product-price">Rp. 6.000.000,00</p>
             </a>
-          </div>
-          <div class="product-card gpu">
-            <a href="/page/product.html?productId=2">
-              <div class="product__img__container">
-                <img src="/images/RTX 4090.png" alt="CPU" />
-              </div>
-              <h3 id="product-name">ASUS RTX 4090</h3>
-              <p id="product-price">Rp. 6.000.000,00</p>
-              <button class="add-to-cart">Add to Cart</button>
+							<div class="card__bottom">
+								<button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+								<p>10</p>
+							</div>
+					</div>
+					<div class="product-card gpu">
+						<a href="/page/product.html?productId=2">
+							<div class="product__img__container">
+								<img src="/images/RTX 4090.png" alt="CPU" />
+							</div>
+							<h3 id="product-name">ASUS RTX 4090</h3>
+							<p id="product-price">Rp. 6.000.000,00</p>
             </a>
-          </div>
-        </div>
-      </div>
-    </section>
+							<div class="card__bottom">
+								<button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+								<p>1</p>
+							</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <footer class="footer">
-      <div class="footer__content">
-        <div class="footer__logo">
-          <img src="/images/PartXpert(W).png" alt="PartXpert Logo" />
-        </div>
-        <ul class="footer__links">
-          <li><a href="">Home</a></li>
-          <li><a href="/page/catalogue.html">Catalogue</a></li>
-          <li><a href="">Cart</a></li>
-          <li><a href="">About Us</a></li>
-        </ul>
-      </div>
-      <div class="footer__social">
-        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      </div>
-      <div class="footer__copy">
-        &copy; 2023 PartXpert. All rights reserved.
-      </div>
-    </footer>
+		<footer class="footer">
+			<div class="footer__content">
+				<div class="footer__logo">
+					<img src="/images/PartXpert(W).png" alt="PartXpert Logo" />
+				</div>
+				<ul class="footer__links">
+					<li><a href="">Home</a></li>
+					<li><a href="/page/catalogue.html">Catalogue</a></li>
+					<li><a href="">Cart</a></li>
+					<li><a href="">About Us</a></li>
+				</ul>
+			</div>
+			<div class="footer__social">
+				<a href="#"><i class="fa-brands fa-facebook"></i></a>
+				<a href="#"><i class="fa-brands fa-twitter"></i></a>
+				<a href="#"><i class="fa-brands fa-instagram"></i></a>
+			</div>
+			<div class="footer__copy">
+				&copy; 2023 PartXpert. All rights reserved.
+			</div>
+		</footer>
 
-    <script src="/Script/script.js"></script>
-    <script src="/Script/product.js"></script>
-    <script src="/Script/catalogue.js"></script>
-  </body>
+		<script src="/Script/script.js"></script>
+		<script src="/Script/product.js"></script>
+		<script src="/Script/catalogue.js"></script>
+		<script src="/Script/cart.js"></script>
+	</body>
 </html>
