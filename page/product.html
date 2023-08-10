@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PartXpert</title>
+    <title>Product Page</title>
     <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/catalogue.css" />
+    <link rel="stylesheet" href="/css/product.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -19,7 +19,6 @@
           <ul class="nav__links">
             <li class="nav__link"><a href="/page/index.html">HOME</a></li>
             <li class="nav__link"><a href="">CATALOGUE</a></li>
-            <li class="nav__link"><a href="/page/product.html">CART</a></li>
             <li class="nav__link"><a href="/page/about.html">ABOUT US</a></li>
             <a href="/page/sign up.html"
               ><button class="nav__button">SIGN UP</button></a
@@ -29,42 +28,19 @@
       </div>
     </nav>
 
-    <section class="catalogue">
-      <div class="ctlg wrapper2">
-        <div class="filter">
-          <label for="category">Filter by Category</label>
-          <select id="category">
-            <option value="all">All</option>
-            <option value="cpu">CPU</option>
-            <option value="gpu">GPU</option>
-            <option value="cases">Cases</option>
-            <option value="psu">PSU</option>
-            <option value="ram">RAM</option>
-            <option value="storage">Storage</option>
-            <option value="other">Other PC Parts</option>
-          </select>
-        </div>
-
-        <div class="product-cards">
-          <div class="product-card cpu">
-            <a href="/page/product.html?productId=1">
-              <div class="product__img__container">
-                <img src="/images/Amd Ryzen 9.png" alt="CPU" />
-              </div>
-              <h3 id="product-name">Ryzen 9 5950X</h3>
-              <p id="product-price">Rp. 6.000.000,00</p>
-              <button class="add-to-cart">Add to Cart</button>
-            </a>
+    <section class="container">
+      <div class="product wrapper">
+        <div class="product-details-container">
+          <div class="product-image-container">
+            <img id="product-image" src="" alt="Product Image" />
           </div>
-          <div class="product-card gpu">
-            <a href="/page/product.html?productId=2">
-              <div class="product__img__container">
-                <img src="/images/RTX 4090.png" alt="CPU" />
-              </div>
-              <h3 id="product-name">ASUS RTX 4090</h3>
-              <p id="product-price">Rp. 6.000.000,00</p>
-              <button class="add-to-cart">Add to Cart</button>
-            </a>
+          <div class="product-info-container">
+            <h3 id="product-name">Product Name</h3>
+            <p id="product-price">Product Price</p>
+            <p id="product-description"></p>
+            <h4>Specifications</h4>
+            <ul class="specs" id="product-specifications"></ul>
+            <button class="add-to-cart">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -94,6 +70,5 @@
 
     <script src="/Script/script.js"></script>
     <script src="/Script/product.js"></script>
-    <script src="/Script/catalogue.js"></script>
   </body>
 </html>
