@@ -28,6 +28,9 @@ async function displayProducts() {
 
 		const productType = product.type;
 
+		const productLink = document.createElement("a");
+		productLink.href = `product.html?id=${product._id}`;
+
 		const productContainer = document.createElement("div");
 		productContainer.classList.add("product-card");
 		productContainer.classList.add(productType);
@@ -40,7 +43,8 @@ async function displayProducts() {
 
 		const productImg = document.createElement("img");
 		productImg.src = product.imageSrc;
-		productImgContainer.appendChild(productImg);
+		productLink.appendChild(productImg);
+		productImgContainer.appendChild(productLink);
 
 		const productDescription = document.createElement("p");
 		productDescription.classList.add("product-description");

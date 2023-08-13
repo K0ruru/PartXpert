@@ -1,74 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Page</title>
-    <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/product.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <nav class="nav" id="main-nav">
-      <div class="wrapper">
-        <div class="nav__content">
-          <div class="logo"><img src="/images/PartXpert.png" alt="" /></div>
-          <ul class="nav__links">
-            <li class="nav__link"><a href="/page/index.html">HOME</a></li>
-            <li class="nav__link"><a href="">CATALOGUE</a></li>
-            <li class="nav__link"><a href="/page/about.html">ABOUT US</a></li>
-            <a href="/page/sign up.html"
-              ><button class="nav__button">SIGN UP</button></a
-            >
-          </ul>
-        </div>
-      </div>
-    </nav>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Product Page</title>
+		<link rel="stylesheet" href="/frontend/css/general.css" />
+		<link rel="stylesheet" href="/frontend/css/product.css" />
+		<link
+			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<nav class="nav" id="main-nav">
+			<div class="wrapper">
+				<div class="nav__content">
+					<div class="logo">
+						<img src="/frontend/images/PartXpert.png" alt="" />
+					</div>
+					<ul class="nav__links">
+						<li class="nav__link">
+							<a href="/frontend/page/index.html">HOME</a>
+						</li>
+						<li class="nav__link"><a href="">CATALOGUE</a></li>
+						<li class="nav__link">
+							<a href="/frontend/page/about.html">ABOUT US</a>
+						</li>
+						<a href="/frontend/page/sign up.html"
+							><button class="nav__button">SIGN UP</button></a
+						>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-    <section class="container">
-      <div class="product wrapper">
-        <div class="product-details-container">
-          <div class="product-image-container">
-            <img id="product-image" src="" alt="Product Image" />
-          </div>
-          <div class="product-info-container">
-            <h3 id="product-name">Product Name</h3>
-            <p id="product-price">Product Price</p>
-            <p id="product-description"></p>
-            <h4>Specifications</h4>
-            <ul class="specs" id="product-specifications"></ul>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </section>
+		<section class="container">
+			<div class="product wrapper">
+				<div class="product-details-container">
+					<div class="product-image-container">
+						<img id="product-image" src="" alt="Product Image" />
+					</div>
+					<div class="product-info-container">
+						<h3 id="product-name">Product Name</h3>
+						<p id="product-price">Product Price</p>
+						<p id="product-description"></p>
+						<h4>Specifications</h4>
+						<ul class="specs" id="product-specifications"></ul>
+						<button class="add-to-cart">Add to Cart</button>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <footer class="footer">
-      <div class="footer__content">
-        <div class="footer__logo">
-          <img src="/images/PartXpert(W).png" alt="PartXpert Logo" />
-        </div>
-        <ul class="footer__links">
-          <li><a href="">Home</a></li>
-          <li><a href="/page/catalogue.html">Catalogue</a></li>
-          <li><a href="">Cart</a></li>
-          <li><a href="">About Us</a></li>
-        </ul>
-      </div>
-      <div class="footer__social">
-        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      </div>
-      <div class="footer__copy">
-        &copy; 2023 PartXpert. All rights reserved.
-      </div>
-    </footer>
+		<footer class="footer">
+			<div class="footer__content">
+				<div class="footer__logo">
+					<img src="/frontend/images/PartXpert(W).png" alt="PartXpert Logo" />
+				</div>
+				<ul class="footer__links">
+					<li><a href="">Home</a></li>
+					<li><a href="/frontend/page/catalogue.html">Catalogue</a></li>
+					<li><a href="">Cart</a></li>
+					<li><a href="">About Us</a></li>
+				</ul>
+			</div>
+			<div class="footer__social">
+				<a href="#"><i class="fa-brands fa-facebook"></i></a>
+				<a href="#"><i class="fa-brands fa-twitter"></i></a>
+				<a href="#"><i class="fa-brands fa-instagram"></i></a>
+			</div>
+			<div class="footer__copy">
+				&copy; 2023 PartXpert. All rights reserved.
+			</div>
+		</footer>
 
-    <script src="/Script/script.js"></script>
-    <script src="/Script/product.js"></script>
-  </body>
+		<script src="/frontend/Script/script.js"></script>
+		<script src="/frontend/Script/product.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	</body>
 </html>
