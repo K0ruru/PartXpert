@@ -95,7 +95,6 @@ async function displayProducts() {
 	const cartItems = [];
 
 	function addToCart(product) {
-		console.log("fuck");
 		const existingItem = cartItems.find(
 			(item) => item.product.id === product.id
 		);
