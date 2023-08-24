@@ -30,7 +30,7 @@
 	<div class="cart">
 		<h1>CART</h1>
 		<ul class="cart-items">
-
+			<!-- Cart items will be added here dynamically -->
 		</ul>
 		<p class="total-price">Total Price: Rp. 0.00</p>
 	</div>
@@ -39,18 +39,26 @@
 	<section class="catalogue">
 		<div class="ctlg wrapper2">
 			<div class="filter">
-				<label for="category">Filter by Category</label>
-				<select id="category">
-					<option value="all">All</option>
-					<option value="cpu">CPU</option>
-					<option value="gpu">GPU</option>
-					<option value="cases">Cases</option>
-					<option value="psu">PSU</option>
-					<option value="ram">RAM</option>
-					<option value="storage">Storage</option>
-					<option value="other">Other PC Parts</option>
-				</select>
+				<div class="custom-dropdown">
+					<div class="dropdown-label">
+						<label for="category">Filter by Category</label>
+					</div>
+					<div class="dropdown-select" id="category">
+						<div class="dropdown-selected-option">All</div>
+						<div class="dropdown-options">
+							<div class="dropdown-option" data-value="all">All</div>
+							<div class="dropdown-option" data-value="cpu">CPU</div>
+							<div class="dropdown-option" data-value="gpu">GPU</div>
+							<div class="dropdown-option" data-value="cases">Cases</div>
+							<div class="dropdown-option" data-value="psu">PSU</div>
+							<div class="dropdown-option" data-value="ram">RAM</div>
+							<div class="dropdown-option" data-value="storage">Storage</div>
+							<div class="dropdown-option" data-value="other">Other PC Parts</div>
+						</div>
+					</div>
+				</div>
 			</div>
+			
 
 			<!-- Product card -->
 			<div class="product-cards">
@@ -82,9 +90,9 @@
 		</div>
 	</footer>
 
-	<script src="/frontend/Script/script.js"></script>
-	<script src="/frontend/Script/product.js"></script>
 	<script src="/frontend/Script/catalogue.js"></script>
+	<script src="/frontend/Script/product.js"></script>
+	<script src="/frontend/Script/script.js"></script>
 	<script src="/frontend/Script/cart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>

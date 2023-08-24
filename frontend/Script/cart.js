@@ -1,107 +1,72 @@
-const cartItems = [];
+const categoryDropdown = document.getElementById("category");
+const dropdownSelectedOption = document.querySelector(
+  ".dropdown-selected-option"
+);
+const dropdownOptions = document.querySelector(".dropdown-options");
+const productCards = document.querySelectorAll(".product-card");
+const cartItems = document.querySelector(".cart-items");
+const totalPriceElement = document.querySelector(".total-price");
 
-function addToCart(product) {
-	console.log("fuck");
-	const existingItem = cartItems.find((item) => item.product.id === product.id);
-	if (existingItem) {
-		existingItem.quantity += 1;
-	} else {
-		cartItems.push({ product: product, quantity: 1 });
-	}
+categoryDropdown.addEventListener("click", function () {
+  dropdownOptions.classList.toggle("show-options");
+});
 
-	updateCartDisplay();
-	updateTotalPrice();
-	updateLocalStorage();
+dropdownOptions.addEventListener("click", function (event) {
+  const selectedOption = event.target;
+  if (selectedOption.classList.contains("dropdown-option")) {
+    const selectedValue = selectedOption.getAttribute("data-value");
+    const selectedText = selectedOption.textContent;
+
+    document.querySelectorAll(".dropdown-option").forEach((opt) => {
+      opt.classList.remove("selected");
+    });
+    selectedOption.classList.add("selected");
+
+    dropdownSelectedOption.textContent = selectedText;
+
+    productCards.forEach((card) => {
+      if (selectedValue === "all" || card.classList.contains(selectedValue)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    dropdownOptions.classList.remove("show-options");
+  }
+});
+
+// Add to cart functionality
+productCards.forEach((card) => {
+  card.addEventListener("click", function () {
+    const itemName = card.querySelector(".product-name").textContent;
+    const itemPrice = parseFloat(
+      card.querySelector(".product-price").textContent.replace("Rp. ", "")
+    );
+
+    const cartItem = document.createElement("li");
+    cartItem.textContent = `${itemName} - Rp. ${itemPrice.toFixed(2)}`;
+    cartItems.appendChild(cartItem);
+
+    updateTotalPrice(itemPrice);
+  });
+});
+
+// Helper function to update total price
+function updateTotalPrice(itemPrice) {
+  const totalPrice = Array.from(cartItems.children).reduce((total, item) => {
+    const price = parseFloat(item.textContent.match(/Rp\. (\d+\.\d+)/)[1]);
+    console.log("Extracted price:", price); // Add this line
+    return total + price;
+  }, 0);
+
+  totalPriceElement.innerHTML = `Total Price: Rp. ${totalPrice.toFixed(2)}`;
+  console.log("Total price:", totalPrice); // Add this line
 }
 
-function updateTotalPrice() {
-	const totalPriceElement = document.querySelector(".total-price");
-	const totalPrice = cartItems.reduce((total, item) => {
-		const productPrice = parseFloat(
-			item.product.price.replace("Rp. ", "").replace(".", "").replace(",", ".")
-		);
-		return total + productPrice * item.quantity;
-	}, 0);
-
-	const formattedTotalPrice = new Intl.NumberFormat("id-ID", {
-		style: "currency",
-		currency: "IDR",
-	}).format(totalPrice);
-	totalPriceElement.textContent = `Total Price: ${formattedTotalPrice}`;
-}
-
-function updateCartDisplay() {
-	const cartItemsList = document.querySelector(".cart-items");
-	cartItemsList.innerHTML = "";
-
-	cartItems.forEach((item) => {
-		const cartItemElement = document.createElement("li");
-		const product = item.product;
-
-		// Create an image element for the product
-		const productImage = document.createElement("img");
-		productImage.src = product.imageSrc;
-		productImage.alt = product.name;
-		productImage.className = "cart-item-image";
-
-		const quantityInput = document.createElement("input");
-		quantityInput.type = "number";
-		quantityInput.min = 1;
-		quantityInput.value = item.quantity;
-		quantityInput.className = "amount";
-		quantityInput.addEventListener("input", function () {
-			updateQuantity(item, parseInt(quantityInput.value));
-		});
-
-		const removeButton = document.createElement("button");
-		removeButton.textContent = "Remove";
-		removeButton.className = "remove-button";
-		removeButton.addEventListener("click", function () {
-			removeFromCart(item);
-		});
-
-		// Create a container for the item details
-		const itemDetailsContainer = document.createElement("div");
-		itemDetailsContainer.className = "cart-item-details";
-
-		// Create a paragraph element for the item text
-		const itemText = document.createElement("p");
-		itemText.textContent = `${product.name} x${item.quantity} - ${product.price}`;
-
-		// Append the image and text to the details container
-		itemDetailsContainer.appendChild(productImage);
-		itemDetailsContainer.appendChild(itemText);
-
-		itemDetailsContainer.appendChild(quantityInput);
-		itemDetailsContainer.appendChild(removeButton);
-
-		// Append the details container to the cart item element
-		cartItemElement.appendChild(itemDetailsContainer);
-
-		cartItemsList.appendChild(cartItemElement);
-	});
-
-	updateTotalPrice(); // Update the total price display
-}
-
-function updateQuantity(itemToUpdate, newQuantity) {
-	if (newQuantity >= 1) {
-		itemToUpdate.quantity = newQuantity;
-		updateCartDisplay();
-	}
-}
-
-function removeFromCart(itemToRemove) {
-	const itemIndex = cartItems.findIndex((item) => item === itemToRemove);
-	if (itemIndex !== -1) {
-		cartItems.splice(itemIndex, 1);
-		updateCartDisplay();
-	}
-	updateLocalStorage();
-}
-const addToCartButtons = document.querySelectorAll(".add-to-cart");
-addToCartButtons.forEach((button, index) => {
-	button.addEventListener("click", function () {
-		addToCart(products[index]);
-	});
+// Close the dropdown options if user clicks outside
+document.addEventListener("click", function (event) {
+  if (!categoryDropdown.contains(event.target)) {
+    dropdownOptions.classList.remove("show-options");
+  }
 });
