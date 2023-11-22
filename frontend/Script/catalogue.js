@@ -1,389 +1,248 @@
 // Get the data from database
 async function fetchProducts() {
-  try {
-    const response = await axios.get("http://localhost:3000/products");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    return [];
-  }
+	try {
+		const response = await axios.get("http://localhost:3000/products");
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching products:", error);
+		return [];
+	}
 }
 
 // a function to format the price
 
 function formatCurrency(amount) {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  }).format(amount);
+	return new Intl.NumberFormat("id-ID", {
+		style: "currency",
+		currency: "IDR",
+	}).format(amount);
 }
 
 // function to render all the products
 async function displayProducts() {
-  const products = await fetchProducts();
+	const products = await fetchProducts();
 
-  products.forEach((product) => {
-    const productItem = document.querySelector(".product-cards");
-    productItem.classList.add("product-item");
+	products.forEach((product) => {
+		const productItem = document.querySelector(".product-cards");
+		productItem.classList.add("product-item");
 
-    const productType = product.type;
+		const productType = product.type;
 
-    const productLink = document.createElement("a");
-    productLink.href = `product.html?id=${product._id}`;
+		const productLink = document.createElement("a");
+		productLink.href = `product.html?id=${product._id}`;
 
-    const productContainer = document.createElement("div");
-    productContainer.classList.add("product-card");
-    productContainer.classList.add(productType);
+		const productContainer = document.createElement("div");
+		productContainer.classList.add("product-card");
+		productContainer.classList.add(productType);
 
-    const productName = document.createElement("h3");
-    productName.textContent = product.name;
+		const productName = document.createElement("h3");
+		productName.textContent = product.name;
 
-    const productImgContainer = document.createElement("div");
-    productImgContainer.classList.add("product__img__container");
+		const productImgContainer = document.createElement("div");
+		productImgContainer.classList.add("product__img__container");
 
-    const productImg = document.createElement("img");
-    productImg.src = product.imageSrc;
-    productLink.appendChild(productImg);
-    productImgContainer.appendChild(productLink);
+		const productImg = document.createElement("img");
+		productImg.src = product.imageSrc;
+		productLink.appendChild(productImg);
+		productImgContainer.appendChild(productLink);
 
-    const productDescription = document.createElement("p");
-    productDescription.classList.add("product-description");
-    productDescription.textContent = product.description;
+		const productDescription = document.createElement("p");
+		productDescription.classList.add("product-description");
+		productDescription.textContent = product.description;
 
-    const productPrice = document.createElement("p");
-    productPrice.textContent = formatCurrency(product.price);
+		const productPrice = document.createElement("p");
+		productPrice.textContent = formatCurrency(product.price);
 
-    const productQuantity = document.createElement("p");
-    productQuantity.classList.add("product-quantity");
-    productQuantity.textContent = product.quantity;
+		const productQuantity = document.createElement("p");
+		productQuantity.classList.add("product-quantity");
+		productQuantity.textContent = product.quantity;
 
-    const productBtn = document.createElement("button");
-    productBtn.innerHTML = "Add To Cart";
-    productBtn.classList.add("add-to-cart");
-    productBtn.setAttribute("onclick", "addToCart()");
+		const productBtn = document.createElement("button");
+		productBtn.innerHTML = "Add To Cart";
+		productBtn.classList.add("add-to-cart");
+		productBtn.setAttribute("onclick", "addToCart()");
 
-    productContainer.appendChild(productImgContainer);
-    productContainer.appendChild(productName);
-    productContainer.appendChild(productDescription);
-    productContainer.appendChild(productPrice);
-    productContainer.appendChild(productBtn);
+		const deleteBtn = document.createElement("button");
+		deleteBtn.innerHTML = "Delete";
+		deleteBtn.classList.add("delete-product");
+		deleteBtn.setAttribute("data-product-id", product._id);
+		deleteBtn.addEventListener("click", function (event) {
+			const productId = event.target.getAttribute("data-product-id");
+			handleDeleteProduct(productId);
+		});
 
-    productItem.appendChild(productContainer);
-  });
+		productContainer.appendChild(productImgContainer);
+		productContainer.appendChild(productName);
+		productContainer.appendChild(productDescription);
+		productContainer.appendChild(productPrice);
+		productContainer.appendChild(productBtn);
+		productContainer.appendChild(deleteBtn);
+		productContainer.appendChild(productQuantity);
 
-  // function for the filter to work
-  const categoryDropdown = document.getElementById("category");
-  const dropdownSelectedOption = document.querySelector(
-    ".dropdown-selected-option"
-  );
-  const dropdownOptions = document.querySelector(".dropdown-options");
-  const productCards = document.querySelectorAll(".product-card");
+		productItem.appendChild(productContainer);
+	});
 
-  categoryDropdown.addEventListener("click", function () {
-    dropdownOptions.classList.toggle("show-options");
-  });
+	// function for the filter to work
+	const categoryDropdown = document.getElementById("category");
+	const dropdownSelectedOption = document.querySelector(
+		".dropdown-selected-option"
+	);
+	const dropdownOptions = document.querySelector(".dropdown-options");
+	const productCards = document.querySelectorAll(".product-card");
 
-  // Close the dropdown options when clicking an option
-  dropdownOptions.addEventListener("click", function (event) {
-    const selectedOption = event.target;
-    if (selectedOption.classList.contains("dropdown-option")) {
-      const selectedValue = selectedOption.getAttribute("data-value");
-      const selectedText = selectedOption.textContent;
+	categoryDropdown.addEventListener("click", function () {
+		dropdownOptions.classList.toggle("show-options");
+	});
 
-      document.querySelectorAll(".dropdown-option").forEach((opt) => {
-        opt.classList.remove("selected");
-      });
-      selectedOption.classList.add("selected");
+	// Close the dropdown options when clicking an option
+	dropdownOptions.addEventListener("click", function (event) {
+		const selectedOption = event.target;
+		if (selectedOption.classList.contains("dropdown-option")) {
+			const selectedValue = selectedOption.getAttribute("data-value");
+			const selectedText = selectedOption.textContent;
 
-      dropdownSelectedOption.textContent = selectedText;
+			document.querySelectorAll(".dropdown-option").forEach((opt) => {
+				opt.classList.remove("selected");
+			});
+			selectedOption.classList.add("selected");
 
-      productCards.forEach((card) => {
-        if (selectedValue === "all" || card.classList.contains(selectedValue)) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
+			dropdownSelectedOption.textContent = selectedText;
 
-      dropdownOptions.classList.remove("show-options");
-    }
-  });
+			productCards.forEach((card) => {
+				if (selectedValue === "all" || card.classList.contains(selectedValue)) {
+					card.style.display = "block";
+				} else {
+					card.style.display = "none";
+				}
+			});
 
-  // Close the dropdown options if user clicks outside
-  document.addEventListener("click", function (event) {
-    if (!categoryDropdown.contains(event.target)) {
-      dropdownOptions.classList.remove("show-options");
-    }
-  });
+			dropdownOptions.classList.remove("show-options");
+		}
+	});
 
-  //function to add the items to the card
+	// Close the dropdown options if user clicks outside
+	document.addEventListener("click", function (event) {
+		if (!categoryDropdown.contains(event.target)) {
+			dropdownOptions.classList.remove("show-options");
+		}
+	});
 
-  const cartItems = [];
-
-  function addToCart(product) {
-    const existingItem = cartItems.find(
-      (item) => item.product.id === product.id
-    );
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cartItems.push({ product: product, quantity: 1 });
-    }
-
-    updateCartDisplay();
-    updateTotalPrice();
-    updateLocalStorage();
-  }
-
-  function updateTotalPrice() {
-    const totalPriceElement = document.querySelector(".total-price");
-    const totalPrice = cartItems.reduce((total, item) => {
-      const productPrice = parseFloat(
-        item.product.price
-          .replace("Rp. ", "")
-          .replace(".", "")
-          .replace(",", ".")
-      );
-      return total + productPrice * item.quantity;
-    }, 0);
-
-    const formattedTotalPrice = new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(totalPrice);
-    totalPriceElement.textContent = `Total Price: ${formattedTotalPrice}`;
-  }
-
-  function updateCartDisplay() {
-    const cartItemsList = document.querySelector(".cart-items");
-    cartItemsList.innerHTML = "";
-
-    cartItems.forEach((item) => {
-      const cartItemElement = document.createElement("li");
-      const product = item.product;
-
-      // Create an image element for the product
-      const productImage = document.createElement("img");
-      productImage.src = product.imageSrc;
-      productImage.alt = product.name;
-      productImage.className = "cart-item-image";
-
-      const quantityInput = document.createElement("input");
-      quantityInput.type = "number";
-      quantityInput.min = 1;
-      quantityInput.value = item.quantity;
-      quantityInput.className = "amount";
-      quantityInput.addEventListener("input", function () {
-        updateQuantity(item, parseInt(quantityInput.value));
-      });
-
-      const removeButton = document.createElement("button");
-      removeButton.textContent = "Remove";
-      removeButton.className = "remove-button";
-      removeButton.addEventListener("click", function () {
-        removeFromCart(item);
-      });
-
-      // Create a container for the item details
-      const itemDetailsContainer = document.createElement("div");
-      itemDetailsContainer.className = "cart-item-details";
-
-      // Create a paragraph element for the item text
-      const itemText = document.createElement("p");
-      itemText.textContent = `${product.name} x${item.quantity} - ${product.price}`;
-
-      // Append the image and text to the details container
-      itemDetailsContainer.appendChild(productImage);
-      itemDetailsContainer.appendChild(itemText);
-
-      itemDetailsContainer.appendChild(quantityInput);
-      itemDetailsContainer.appendChild(removeButton);
-
-      // Append the details container to the cart item element
-      cartItemElement.appendChild(itemDetailsContainer);
-
-      cartItemsList.appendChild(cartItemElement);
-    });
-
-    updateTotalPrice(); // Update the total price display
-  }
-
-  function updateQuantity(itemToUpdate, newQuantity) {
-    if (newQuantity >= 1) {
-      itemToUpdate.quantity = newQuantity;
-      updateCartDisplay();
-    }
-  }
-
-  function removeFromCart(itemToRemove) {
-    const itemIndex = cartItems.findIndex((item) => item === itemToRemove);
-    if (itemIndex !== -1) {
-      cartItems.splice(itemIndex, 1);
-      updateCartDisplay();
-    }
-    updateLocalStorage();
-  }
-  const addToCartButtons = document.querySelectorAll(".add-to-cart");
-  addToCartButtons.forEach((button, index) => {
-    button.addEventListener("click", function () {
-      addToCart(products[index]);
-    });
-  });
+	//function to add the items to the card
 }
 
 window.addEventListener("load", displayProducts);
 
 function toggleNav() {
-  const sidenav = document.querySelector(".cart");
-  const overlay = document.querySelector(".overlay");
-  if (sidenav.style.width === "450px") {
-    sidenav.style.width = "0";
-    overlay.style.display = "none";
-  } else {
-    sidenav.style.width = "450px";
-    overlay.style.display = "block";
-  }
+	const sidenav = document.querySelector(".cart");
+	const overlay = document.querySelector(".overlay");
+	if (sidenav.style.width === "450px") {
+		sidenav.style.width = "0";
+		overlay.style.display = "none";
+	} else {
+		sidenav.style.width = "450px";
+		overlay.style.display = "block";
+	}
 }
 function openNav() {
-  const sidenav = document.querySelector(".cart");
-  const overlay = document.querySelector(".overlay");
-  sidenav.style.width = "450px";
-  overlay.style.display = "block";
+	const sidenav = document.querySelector(".cart");
+	const overlay = document.querySelector(".overlay");
+	sidenav.style.width = "450px";
+	overlay.style.display = "block";
 }
 
 function closeNav() {
-  const sidenav = document.querySelector(".cart");
-  const overlay = document.querySelector(".overlay");
-  sidenav.style.width = "0";
-  overlay.style.display = "none";
+	const sidenav = document.querySelector(".cart");
+	const overlay = document.querySelector(".overlay");
+	sidenav.style.width = "0";
+	overlay.style.display = "none";
 }
+
+const showModalBtn = document.getElementById("showModalBtn");
+const addProductModal = document.getElementById("addProductModal");
+const modalContainer = document.getElementById("modalContainer");
+
+function showModal() {
+	addProductModal.classList.add("show");
+	modalContainer.classList.add("show");
+}
+
+// Function to hide the modal
+function hideModal() {
+	addProductModal.classList.remove("show");
+	modalContainer.classList.remove("show");
+}
+
+// Event listener for the button click to show the modal
+showModalBtn.addEventListener("click", showModal);
+
+// Optional: Close the modal when clicking outside of it
+window.addEventListener("click", (event) => {
+	if (event.target === addProductModal) {
+		hideModal();
+	}
+});
+
+// Optional: Close the modal when pressing the Escape key
+window.addEventListener("keydown", (event) => {
+	if (event.key === "Escape") {
+		hideModal();
+	}
+});
 
 document.addEventListener("click", function (event) {
-  const sidenav = document.querySelector(".cart");
-  const toggleButton = document.querySelector(".toggle-btn");
-  const removeBtn = document.querySelector(".remove-button");
-  const targetElement = event.target;
+	const sidenav = document.querySelector(".cart");
+	const toggleButton = document.querySelector(".toggle-btn");
+	const removeBtn = document.querySelector(".remove-button");
+	const targetElement = event.target;
 
-  if (
-    targetElement !== sidenav &&
-    targetElement !== toggleButton &&
-    targetElement !== removeBtn
-  ) {
-    closeNav();
-  }
+	if (
+		targetElement !== sidenav &&
+		targetElement !== toggleButton &&
+		targetElement !== removeBtn
+	) {
+		closeNav();
+	}
 });
 
-const cartItems = [];
+// Select the form by its ID
+document.getElementById("addForm").addEventListener("submit", function (event) {
+	event.preventDefault();
 
-function addToCart(product) {
-  console.log("fuck");
-  const existingItem = cartItems.find((item) => item.product.id === product.id);
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cartItems.push({ product: product, quantity: 1 });
-  }
+	// Gather form data
+	const formData = new FormData(this);
+	const requestData = {};
+	formData.forEach(function (value, key) {
+		requestData[key] = value;
+	});
 
-  updateCartDisplay();
-  updateTotalPrice();
-  updateLocalStorage();
-}
-
-function updateTotalPrice() {
-  const totalPriceElement = document.querySelector(".total-price");
-  const totalPrice = cartItems.reduce((total, item) => {
-    const productPrice = parseFloat(
-      item.product.price.replace("Rp. ", "").replace(".", "").replace(",", ".")
-    );
-    return total + productPrice * item.quantity;
-  }, 0);
-
-  const formattedTotalPrice = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  }).format(totalPrice);
-  totalPriceElement.textContent = `Total Price: ${formattedTotalPrice}`;
-}
-
-function updateCartDisplay() {
-  const cartItemsList = document.querySelector(".cart-items");
-  cartItemsList.innerHTML = "";
-
-  cartItems.forEach((item) => {
-    const cartItemElement = document.createElement("li");
-    const product = item.product;
-
-    // Create an image element for the product
-    const productImage = document.createElement("img");
-    productImage.src = product.imageSrc;
-    productImage.alt = product.name;
-    productImage.className = "cart-item-image";
-
-    const quantityInput = document.createElement("input");
-    quantityInput.type = "number";
-    quantityInput.min = 1;
-    quantityInput.value = item.quantity;
-    quantityInput.className = "amount";
-    quantityInput.addEventListener("input", function () {
-      updateQuantity(item, parseInt(quantityInput.value));
-    });
-
-    const removeButton = document.createElement("button");
-    removeButton.textContent = "Remove";
-    removeButton.className = "remove-button";
-    removeButton.addEventListener("click", function () {
-      removeFromCart(item);
-    });
-
-    // Create a container for the item details
-    const itemDetailsContainer = document.createElement("div");
-    itemDetailsContainer.className = "cart-item-details";
-
-    // Create a paragraph element for the item text
-    const itemText = document.createElement("p");
-    itemText.textContent = `${product.name} x${
-      item.quantity
-    } - ${formatCurrency(product.price)}`;
-
-    // Append the image and text to the details container
-    itemDetailsContainer.appendChild(productImage);
-    itemDetailsContainer.appendChild(itemText);
-
-    itemDetailsContainer.appendChild(quantityInput);
-    itemDetailsContainer.appendChild(removeButton);
-
-    // Append the details container to the cart item element
-    cartItemElement.appendChild(itemDetailsContainer);
-
-    cartItemsList.appendChild(cartItemElement);
-  });
-
-  updateTotalPrice(); // Update the total price display
-}
-
-function updateQuantity(itemToUpdate, newQuantity) {
-  if (newQuantity >= 1) {
-    itemToUpdate.quantity = newQuantity;
-    updateCartDisplay();
-  }
-}
-
-function removeFromCart(itemToRemove) {
-  const itemIndex = cartItems.findIndex((item) => item === itemToRemove);
-  if (itemIndex !== -1) {
-    cartItems.splice(itemIndex, 1);
-    updateCartDisplay();
-  }
-  updateLocalStorage();
-}
-function createAddToCartHandler(product) {
-  return function () {
-    addToCart(product);
-  };
-}
-
-const addToCartButtons = document.querySelectorAll(".add-to-cart");
-addToCartButtons.forEach((button, index) => {
-  const product = products[index];
-  button.addEventListener("click", createAddToCartHandler(product));
+	// Send POST request using Axios
+	axios
+		.post("http://localhost:3000/products", requestData)
+		.then(function (response) {
+			alert("Data sent successfully:", response.data);
+			window.location.reload();
+		})
+		.catch(function (error) {
+			console.error("Error sending data:", error);
+			// Handle errors during data submission
+		});
 });
+
+async function handleDeleteProduct(productId) {
+	const confirmDelete = window.confirm(
+		"Are you sure you want to delete this product?"
+	);
+	if (confirmDelete) {
+		try {
+			const response = await axios.delete(
+				`http://localhost:3000/products/${productId}`
+			);
+			console.log("Product deleted:", response.data);
+			window.location.reload();
+		} catch (error) {
+			console.error("Error deleting product:", error);
+		}
+	} else {
+		console.log("Deletion cancelled");
+	}
+}

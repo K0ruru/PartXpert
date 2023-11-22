@@ -72,10 +72,57 @@ app.get("/products", async (req, res) => {
 
 app.post("/products", async (req, res) => {
 	try {
-		const product = await Product.create(req.body);
+		const {
+			name,
+			type,
+			price,
+			quantity,
+			imageSrc,
+			description,
+			specifications,
+		} = req.body;
+
+		// Create a new Product object using the received form data
+		const newProduct = new Product({
+			name,
+			type,
+			price,
+			quantity,
+			imageSrc,
+			description,
+			specifications: specifications.split(","), // If specifications are comma-separated
+			// Map other fields as needed based on your schema
+		});
+
+		// Save the new product to the database
+		const product = await newProduct.save();
+
 		res.status(200).json(product);
 	} catch (e) {
 		console.log(e.message);
 		res.status(500).json({ message: e.message });
+	}
+});
+
+app.delete("/products/:id", async (req, res) => {
+	try {
+		const productId = req.params.id;
+
+		// Validate the provided product ID
+		if (!ObjectId.isValid(productId)) {
+			return res.status(400).json({ error: "Invalid product ID" });
+		}
+
+		// Attempt to find and delete the product by its ID
+		const deletedProduct = await Product.findByIdAndDelete(productId);
+
+		if (!deletedProduct) {
+			return res.status(404).json({ error: "Product not found" });
+		}
+
+		res.json({ message: "Product deleted successfully", deletedProduct });
+	} catch (error) {
+		console.error("Error deleting product:", error);
+		res.status(500).json({ error: "Internal server error" });
 	}
 });
